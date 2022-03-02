@@ -54,7 +54,7 @@ class Post():
   @classmethod
   def find_by_id(cls, id):
     post = get_db().execute(
-      'SELECT p.id, title, body, created, author_id, username'
+      'SELECT p.id, title, body, created, author_id, username, num_likes'
       ' FROM post p JOIN user u ON p.author_id = u.id'
       ' WHERE p.id = ?',
       (id,)
@@ -66,7 +66,8 @@ class Post():
       post['id'],
       post['created'],
       post['author_id'],
-      post['username']
+      post['username'],
+      post['num_likes']
     )
 
   def __init__(self, title, body, id, created, author_id, username, num_likes):
