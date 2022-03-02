@@ -30,5 +30,5 @@ class TestCancel(BaseCase):
     self.click('input[value="Log In"]')
     self.click_link("New")
     self.click('input[value="Cancel"]')
-    self.assert_text('posts' and 'profile')
+    self.assert_text('Posts')
 

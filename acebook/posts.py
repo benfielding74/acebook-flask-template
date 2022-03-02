@@ -67,9 +67,6 @@ def update(id):
             db = get_db()
             post.update(title, body, id)
             return redirect(url_for('posts.index'))
-    
-    # else request.method == 'GET'
-    #   return redirect(url_for('posts.index'))
 
     return render_template('posts/update.html', post=post)
 
