@@ -13,6 +13,7 @@
       <header>
         <div>
           <h1>{{ post.title }}</h1>
+          <a class="action" href="">Like</a>
           <div class="about">by {{ post.username }} on {{ post.created.strftime('%Y-%m-%d') }} - {{ post.num_likes }} like(s)</div>
         </div>
         {% if g.user.id == post.author_id %}
