@@ -15,8 +15,26 @@ class Post():
   @classmethod
   def all(cls):
     db = get_db()
+
+    db.execute('DROP TABLE IF EXISTS num_likes')
+
+    db.execute(
+      'CREATE TABLE num_likes AS'
+      ' SELECT post_id, count(post_id) AS cnt'
+      ' FROM likes'
+      ' group by post_id'
+    )
+
+    db.execute(
+      'UPDATE post SET num_likes ='
+      ' (SELECT cnt FROM num_likes'
+      ' WHERE post_id = post.id)'
+      ' where EXISTS (SELECT cnt'
+      ' FROM num_likes WHERE post_id = post.id)'
+    )
+
     posts = db.execute(
-      'SELECT p.id, title, body, created, author_id, username'
+      'SELECT p.id, title, body, created, author_id, username, num_likes'
       ' FROM post p JOIN user u ON p.author_id = u.id'
       ' ORDER BY created DESC'
     ).fetchall()
@@ -28,7 +46,8 @@ class Post():
         post['id'],
         post['created'],
         post['author_id'],
-        post['username']
+        post['username'],
+        post['num_likes']
       ) for post in posts
     ]
 
@@ -50,13 +69,14 @@ class Post():
       post['username']
     )
 
-  def __init__(self, title, body, id, created, author_id, username):
+  def __init__(self, title, body, id, created, author_id, username, num_likes):
     self.title = title
     self.body = body
     self.id = id
     self.created = created
     self.author_id = author_id
     self.username = username
+    self.num_likes = num_likes
 
   def update(self, title, body, id):
     db = get_db()
