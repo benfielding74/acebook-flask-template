@@ -32,6 +32,11 @@ def create():
 
     return render_template('posts/create.html')
 
+@bp.route('/cancel', methods=('POST',))
+@login_required
+def cancel():
+    return redirect(url_for('posts.index'))
+
 def get_post(id, check_author=True):
     post = Post.find_by_id(id)
 
@@ -62,6 +67,9 @@ def update(id):
             db = get_db()
             post.update(title, body, id)
             return redirect(url_for('posts.index'))
+    
+    # else request.method == 'GET'
+    #   return redirect(url_for('posts.index'))
 
     return render_template('posts/update.html', post=post)
 

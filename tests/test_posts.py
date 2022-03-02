@@ -21,3 +21,14 @@ class TestPosts(BaseCase):
     self.click('input[value="Save"]')
     self.assert_text(title)
     self.assert_text(body)
+
+class TestCancel(BaseCase):
+  def test_cancel_post(self):
+    self.open('http://127.0.0.1:5000/auth/login')
+    self.type('input[name="username"]', "Morgan Sparks")
+    self.type('input[name="password"]', "12345678")
+    self.click('input[value="Log In"]')
+    self.click_link("New")
+    self.click('input[value="Cancel"]')
+    self.assert_text('posts' and 'profile')
+
