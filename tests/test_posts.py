@@ -32,7 +32,6 @@ class TestPosts(BaseCase):
     self.assert_text(title)
     self.assert_text(body)
 
-
   def test_liking_a_post(self):
     self.open('http://127.0.0.1:5000/auth/register')
     username = fake.name()
@@ -52,10 +51,13 @@ class TestPosts(BaseCase):
     self.click('input[value="Like"]')
     self.assert_text("1 like(s)")
     #return_tags_in_xpath('//*')   # debugging function use with pytest -s flag
-
-
-
-
-
-        
     
+ class TestCancel(BaseCase):
+  def test_cancel_post(self):
+    self.open('http://127.0.0.1:5000/auth/login')
+    self.type('input[name="username"]', "Morgan Sparks")
+    self.type('input[name="password"]', "12345678")
+    self.click('input[value="Log In"]')
+    self.click_link("New")
+    self.click('input[value="Cancel"]')
+    self.assert_text('Posts')

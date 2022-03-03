@@ -24,6 +24,9 @@ def create():
         if not title:
             error = 'Title is required.'
 
+        if not body:
+            error = 'Type something you would like to post!'
+
         if error is not None:
             flash(error)
         else:
@@ -31,6 +34,11 @@ def create():
             return redirect(url_for('posts.index'))
 
     return render_template('posts/create.html')
+
+@bp.route('/cancel', methods=('POST',))
+@login_required
+def cancel():
+    return redirect(url_for('posts.index'))
 
 def get_post(id, check_author=True):
     post = Post.find_by_id(id)
@@ -70,6 +78,7 @@ def update(id):
 def delete(id):
     post = Post.find_by_id(id)
     post.delete()
+
     return redirect(url_for('posts.index'))
 
 @bp.route('/<int:id>/like_post', methods=('POST',))
