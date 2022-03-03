@@ -24,6 +24,9 @@ def create():
         if not title:
             error = 'Title is required.'
 
+        if not body:
+            error = 'Type something you would like to post!'
+
         if error is not None:
             flash(error)
         else:
