@@ -3,13 +3,6 @@ from faker import Faker
 
 fake = Faker()
 
-def return_tags_in_xpath(xpath):
-  print("list of elements")
-  elements = browser.find_elements(by=By.XPATH,value=xpath)
-  for e in range(len(elements)):
-    print(e, elements[e].tag_name)
-
-
 class TestPosts(BaseCase):
   def test_create_and_list(self):
     self.open('http://127.0.0.1:5000/auth/register')
