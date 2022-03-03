@@ -1,4 +1,5 @@
 from acebook.db import get_db
+from flask import g
 
 class Post():
 
@@ -92,3 +93,14 @@ class Post():
     db = get_db()
     db.execute('DELETE FROM post WHERE id = ?', (self.id,))
     db.commit()
+
+  def like_post(self):
+    db = get_db()
+    db.execute(
+      'INSERT INTO likes (user_id, post_id)'
+      ' VALUES (?, ?)',
+       (str(g.user), self.id)
+    )
+    db.commit()
+
+

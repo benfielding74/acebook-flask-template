@@ -13,7 +13,11 @@
       <header>
         <div>
           <h1>{{ post.title }}</h1>
-          <a class="action" href="">Like</a>
+
+          <form action="{{ url_for('posts.like_post', id=post.id) }}" method="post" id="form1">
+            <input type="submit" value="Like" >
+          </form>
+
           <div class="about">by {{ post.username }} on {{ post.created.strftime('%Y-%m-%d') }} - {{ post.num_likes }} like(s)</div>
         </div>
         {% if g.user.id == post.author_id %}

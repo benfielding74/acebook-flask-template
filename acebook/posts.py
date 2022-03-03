@@ -71,3 +71,10 @@ def delete(id):
     post = Post.find_by_id(id)
     post.delete()
     return redirect(url_for('posts.index'))
+
+@bp.route('/<int:id>/like_post', methods=('POST',))
+@login_required
+def like_post(id):
+    post = Post.find_by_id(id)
+    post.like_post()
+    return redirect(url_for('posts.index'))

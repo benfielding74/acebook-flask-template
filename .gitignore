@@ -3,6 +3,8 @@ venv/
 *.pyc
 __pycache__/
 
+geckodriver.log
+
 instance/
 latest_logs
 archived_logs
@@ -14,3 +16,5 @@ htmlcov/
 dist/
 build/
 *.egg-info
+
+tests/geckodriver.log
