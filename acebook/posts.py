@@ -30,7 +30,7 @@ def create():
         if error is not None:
             flash(error)
         else:
-            Post.create(title, body, g.user.id)
+            Post.create(title, body, g.user.id, g.user.profile_picture)
             return redirect(url_for('posts.index'))
 
     return render_template('posts/create.html')

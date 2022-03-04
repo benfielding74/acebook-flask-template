@@ -4,12 +4,12 @@ from flask import g
 class Post():
 
   @classmethod
-  def create(cls, title, body, user_id):
+  def create(cls, title, body, user_id, user_profile_picture):
     db = get_db()
     db.execute(
-      'INSERT INTO post (title, body, author_id)'
-      ' VALUES (?, ?, ?)',
-      (title, body, user_id)
+      'INSERT INTO post (title, body, author_id, user_profile_picture)'
+      ' VALUES (?, ?, ?,?)',
+      (title, body, user_id, user_profile_picture)
     )
     db.commit()
 
@@ -35,7 +35,7 @@ class Post():
     )
 
     posts = db.execute(
-      'SELECT p.id, title, body, created, author_id, username, num_likes'
+      'SELECT p.id, title, body, created, author_id, username, num_likes, user_profile_picture'
       ' FROM post p JOIN user u ON p.author_id = u.id'
       ' ORDER BY created DESC'
     ).fetchall()
@@ -48,7 +48,8 @@ class Post():
         post['created'],
         post['author_id'],
         post['username'],
-        post['num_likes']
+        post['num_likes'],
+        post['user_profile_picture']
       ) for post in posts
     ]
 
@@ -71,7 +72,7 @@ class Post():
       post['num_likes']
     )
 
-  def __init__(self, title, body, id, created, author_id, username, num_likes):
+  def __init__(self, title, body, id, created, author_id, username, num_likes, user_profile_picture):
     self.title = title
     self.body = body
     self.id = id
@@ -79,6 +80,7 @@ class Post():
     self.author_id = author_id
     self.username = username
     self.num_likes = num_likes
+    self.user_profile_picture = user_profile_picture
 
   def update(self, title, body, id):
     db = get_db()

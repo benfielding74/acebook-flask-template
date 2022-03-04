@@ -19,8 +19,8 @@ def register():
         password = request.form['password']
         photo = request.files['file']
         uploads_dir = os.path.join(app.instance_path, 'images')
-        photo.save((os.path.join(uploads_dir,secure_filename(photo.filename))))
-
+        profile_picture_path = os.path.join(uploads_dir,secure_filename(photo.filename))
+        photo.save(profile_picture_path)
         error = None
 
         if not username:
@@ -31,7 +31,7 @@ def register():
             error = f"User {username} is already registered."
 
         if error is None:
-            User.create(username, password, )
+            User.create(username, password, profile_picture_path, )
             return redirect(url_for('auth.login'))
 
         flash(error)
