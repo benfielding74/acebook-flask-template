@@ -71,6 +71,17 @@ class Post():
       post['num_likes']
     )
 
+  @classmethod
+  def add_comment(cls, comment, id, user_id):
+    user_id = g.user.id
+    db = get_db()
+    db.execute(
+      'INSERT INTO comments (author_id, body, post_id)'
+      ' VALUES (?, ?, ?)',
+       (user_id, comment, id)
+    )
+    db.commit()
+
   def __init__(self, title, body, id, created, author_id, username, num_likes):
     self.title = title
     self.body = body
@@ -102,5 +113,6 @@ class Post():
        (str(g.user), self.id)
     )
     db.commit()
+  
 
 
