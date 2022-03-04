@@ -1,7 +1,8 @@
 import functools
-
+import os
+from werkzeug.utils import secure_filename
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, render_template, request, session, url_for, Flask
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -9,12 +10,16 @@ from acebook.db import get_db
 from acebook.user import User
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+app = Flask(__name__, instance_relative_config=True)
 
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        photo = request.files['file']
+        uploads_dir = os.path.join(app.instance_path, 'images')
+        photo.save((os.path.join(uploads_dir,secure_filename(photo.filename))))
 
         error = None
 
@@ -26,7 +31,7 @@ def register():
             error = f"User {username} is already registered."
 
         if error is None:
-            User.create(username, password)
+            User.create(username, password, )
             return redirect(url_for('auth.login'))
 
         flash(error)
