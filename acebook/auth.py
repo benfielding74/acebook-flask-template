@@ -18,8 +18,7 @@ def register():
         username = request.form['username']
         password = request.form['password']
         photo = request.files['file']
-        uploads_dir = os.path.join(app.instance_path, 'images')
-        profile_picture_path = os.path.join(uploads_dir,secure_filename(photo.filename))
+        profile_picture_path = os.path.join("/Users/kyrsten/Projects/Python_Stuff/YouTwitFace/acebook-flask-template/acebook/static/images",secure_filename(photo.filename))
         photo.save(profile_picture_path)
         error = None
 
@@ -31,7 +30,7 @@ def register():
             error = f"User {username} is already registered."
 
         if error is None:
-            User.create(username, password, profile_picture_path, )
+            User.create(username, password, secure_filename(photo.filename), )
             return redirect(url_for('auth.login'))
 
         flash(error)

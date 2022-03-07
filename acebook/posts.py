@@ -11,7 +11,7 @@ bp = Blueprint('posts', __name__)
 @bp.route('/')
 def index():
     posts = Post.all()
-    
+
     return render_template('posts/index.html', posts=posts, )
 
 @bp.route('/create', methods=('GET', 'POST'))
@@ -87,4 +87,11 @@ def delete(id):
 def like_post(id):
     post = Post.find_by_id(id)
     post.like_post()
+    return redirect(url_for('posts.index'))
+
+@bp.route('/<int:id>/user_profile_picture', methods=('GET',))
+@login_required
+def user_profile_picture(id):
+    post = Post.find_by_id(id)
+    post.user_profile_picture
     return redirect(url_for('posts.index'))
