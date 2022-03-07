@@ -5,13 +5,15 @@ from werkzeug.exceptions import abort
 from acebook.auth import login_required
 from acebook.db import get_db
 from acebook.post import Post
+from acebook.post import Comment
 
 bp = Blueprint('posts', __name__)
 
 @bp.route('/')
 def index():
     posts = Post.all()
-    return render_template('posts/index.html', posts=posts)
+    comments = Comment.all_comments()
+    return render_template('posts/index.html', posts=posts, comments=comments)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required

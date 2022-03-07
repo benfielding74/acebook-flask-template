@@ -71,17 +71,6 @@ class Post():
       post['num_likes']
     )
 
-  @classmethod
-  def add_comment(cls, comment, id, user_id):
-    user_id = g.user.id
-    db = get_db()
-    db.execute(
-      'INSERT INTO comments (author_id, body, post_id)'
-      ' VALUES (?, ?, ?)',
-       (user_id, comment, id)
-    )
-    db.commit()
-
   def __init__(self, title, body, id, created, author_id, username, num_likes):
     self.title = title
     self.body = body
@@ -113,6 +102,50 @@ class Post():
        (str(g.user), self.id)
     )
     db.commit()
+
+  @classmethod
+  def add_comment(cls, comment, post_id, user_id):
+    Comment.add_comment(comment, post_id, user_id)
+
+
+class Comment(): 
+
+  @classmethod
+  def add_comment(cls, comment, id, user_id):
+    user_id = g.user.id
+    db = get_db()
+    db.execute(
+      'INSERT INTO comments (author_id, comment, post_id)'
+      ' VALUES (?, ?, ?)',
+      (user_id, comment, id)
+    )
+    db.commit()
+
+  @classmethod
+  def all_comments(cls):  
+    db = get_db() 
+    comment = db.execute(
+    'SELECT comment, author_id, username, time_posted, post_id'
+    ' FROM comments c JOIN user u ON c.author_id = u.id'
+    ' ORDER BY time_posted DESC'
+    ).fetchall()
+
+    return [
+      Comment(
+        comment["author_id"],
+        comment["comment"],
+        comment["time_posted"],
+        comment["post_id"],
+        comment["username"]
+      ) for comment in comment
+    ]
   
+  def __init__(self, comment, time_posted, author_id, username, post_id):
+    self.comment = comment
+    self.time_posted = time_posted
+    # self.id = id
+    self.author_id = author_id
+    self.username = username
+    self.post_id = post_id  
 
 
