@@ -8,7 +8,7 @@ class Post():
     db = get_db()
     db.execute(
       'INSERT INTO post (title, body, author_id, user_profile_picture)'
-      ' VALUES (?, ?, ?,?)',
+      ' VALUES (?, ?, ?, ?)',
       (title, body, user_id, user_profile_picture)
     )
     db.commit()

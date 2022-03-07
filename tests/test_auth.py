@@ -25,19 +25,4 @@ class TestPhoto(BaseCase):
 
     self.click('input[value="Register"]')
 
-
-  # def test_upload_profile_photo(self):
-  #   test_file = os.path.dirname(os.path.abspath(__file__)) + "/frog.jpg"
-
-  #   self.open('http://127.0.0.1:5000/auth/register')
-  #   username = fake.name()
-  #   self.type('input[name="email"]', 'test7@example.com')
-  #   self.type('input[name="username"]', username)
-  #   self.type('input[name="password"]', "12345678")
-  #   self.click('input[value="Register"]')
-  #   self.open('http://127.0.0.1:5000/profile')
-  #   self.find_element('input[name="photo_upload"]').send_keys(test_file)
-  #   self.click('input[value="Upload"]')
-  #   self.assert_text('File uploaded')
-
     
