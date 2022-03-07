@@ -11,7 +11,8 @@ bp = Blueprint('posts', __name__)
 @bp.route('/')
 def index():
     posts = Post.all()
-    return render_template('posts/index.html', posts=posts)
+    
+    return render_template('posts/index.html', posts=posts, )
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required

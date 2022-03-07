@@ -27,7 +27,7 @@ class TestPhoto(BaseCase):
 
 
   # def test_upload_profile_photo(self):
-  #   test_file = os.path.dirname(os.path.abspath(__file__)) + "/cat.jpg"
+  #   test_file = os.path.dirname(os.path.abspath(__file__)) + "/frog.jpg"
 
   #   self.open('http://127.0.0.1:5000/auth/register')
   #   username = fake.name()
