@@ -5,13 +5,15 @@ from werkzeug.exceptions import abort
 from acebook.auth import login_required
 from acebook.db import get_db
 from acebook.post import Post
+from acebook.post import Comment
 
 bp = Blueprint('posts', __name__)
 
 @bp.route('/')
 def index():
     posts = Post.all()
-    return render_template('posts/index.html', posts=posts)
+    comments = Comment.all_comments()
+    return render_template('posts/index.html', posts=posts, comments = comments)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -86,4 +88,12 @@ def delete(id):
 def like_post(id):
     post = Post.find_by_id(id)
     post.like_post()
+    return redirect(url_for('posts.index'))
+
+@bp.route('/<int:id>/add_comment', methods=('POST', 'GET'))
+@login_required
+def add_comment(id):
+    comment = request.form['comment']
+    post = Post.find_by_id(id)
+    post.add_comment(comment, id, g.user.id)
     return redirect(url_for('posts.index'))
