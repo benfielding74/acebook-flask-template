@@ -11,11 +11,13 @@
   {% for post in posts %}
     <article class="post">
       <header>
-        <div>
-          {{ post.username }}          
-          <img src="{{url_for('static', filename = 'images/' + post.user_profile_picture, id=post.id)}}" alt="{{ posts.author_id }}" width="80" height="90">
+        <div>         
+          <div class="profile">
+          <img src="{{url_for('static', filename = 'images/' + post.user_profile_picture, id=post.id)}}" alt="{{ posts.author_id }}" width="60" height="60">
+          <div class="username">{{ post.username }}</div>
+          </div>
           <h1>{{ post.title }}</h1>
-          <div class="about">on {{ post.created.strftime('%Y-%m-%d') }} - {{ post.num_likes }} like(s)</div>
+          <div class="about">posted at {{ post.created.strftime('%H:%M') }} - {{ post.num_likes }} like(s)</div>
         </div>
         {% if g.user.id == post.author_id %}
           <a class="action" href="{{ url_for('posts.update', id=post.id) }}">Edit</a>

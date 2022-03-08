@@ -18,4 +18,5 @@ build/
 *.egg-info
 
 tests/geckodriver.log
-static/images/*
+
+acebook/static/images/
