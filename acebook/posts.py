@@ -13,7 +13,7 @@ bp = Blueprint('posts', __name__)
 def index():
     posts = Post.all()
     comments = Comment.all_comments()
-    return render_template('posts/index.html', posts=posts, comments=comments)
+    return render_template('posts/index.html', posts=posts, comments = comments)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required

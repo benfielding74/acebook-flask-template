@@ -127,25 +127,22 @@ class Comment():
     comment = db.execute(
     'SELECT comment, author_id, username, time_posted, post_id'
     ' FROM comments c JOIN user u ON c.author_id = u.id'
-    ' ORDER BY time_posted DESC'
+    ' ORDER BY time_posted ASC'
     ).fetchall()
 
     return [
       Comment(
-        comment["author_id"],
         comment["comment"],
+        comment["username"],
         comment["time_posted"],
-        comment["post_id"],
-        comment["username"]
+        comment["post_id"] 
       ) for comment in comment
     ]
   
-  def __init__(self, comment, time_posted, author_id, username, post_id):
+  def __init__(self, comment, username, time_posted, post_id):
     self.comment = comment
-    self.time_posted = time_posted
-    # self.id = id
-    self.author_id = author_id
     self.username = username
+    self.time_posted = time_posted
     self.post_id = post_id  
 
 
