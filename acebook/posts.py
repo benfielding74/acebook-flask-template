@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
@@ -6,6 +7,7 @@ from acebook.auth import login_required
 from acebook.db import get_db
 from acebook.post import Post
 from acebook.post import Comment
+from acebook.user import User
 
 bp = Blueprint('posts', __name__)
 
@@ -98,3 +100,19 @@ def add_comment(id):
     post = Post.find_by_id(id)
     post.add_comment(comment, id, g.user.id)
     return redirect(url_for('posts.index'))
+
+@bp.route('/<int:id>/profile', methods=('GET','POST'))
+@login_required
+def profile(id):
+  user = User.find_by_id(id)
+  return render_template('posts/profile.html', user=user)
+
+@bp.route('/<int:id>/about_me', methods=('GET', 'POST'))
+def about_me(id):
+  user = User.find_by_id(id)
+  if request.method == 'POST':
+    text = request.form['about']
+    User.add_about_me(user, text)
+    return redirect(url_for('posts.profile'))
+
+  return render_template('posts/about_me.html')

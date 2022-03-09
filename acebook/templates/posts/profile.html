@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<img src="{{url_for('static', filename = 'images/' + user.profile_picture)}}" alt="{{ user.username }}" width="120" height="120">
+<h1>Hello {{ user.username }}</h1>
+<h3>About Me</h3>
+<p> {{ user.about_me }} </p>
+{% if g.user.id == user.id %}
+ <a class="action" href="{{ url_for('posts.about_me', id=g.user.id) }}">Edit</a>
+{% endif %}
+{% endblock %}
