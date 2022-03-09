@@ -38,6 +38,31 @@ def create():
 
     return render_template('posts/create.html')
 
+@bp.route('/upload_photo', methods=('GET', 'POST'))
+@login_required
+def upload_photo():
+    if request.method == 'POST':
+        caption = request.form['caption']
+        photo = request.files['file']
+        images_path = current_app.instance_path.replace("instance","acebook/static/images")
+        profile_picture_path = os.path.join(images_path,secure_filename(photo.filename))
+        photo.save(profile_picture_path)
+        error = None
+
+        if not caption:
+            error = "Don't you want a caption."
+
+        if not photo:
+            error = 'Whats the point if you not putting a picture on?'
+
+        if error is not None:
+            flash(error)
+        else:
+            Post.create(caption, photo, g.user.id, g.user.profile_picture)
+            return redirect(url_for('posts.index'))
+
+    return render_template('posts/upload_photo.html')
+
 @bp.route('/cancel', methods=('POST',))
 @login_required
 def cancel():
