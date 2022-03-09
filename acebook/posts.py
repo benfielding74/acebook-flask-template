@@ -1,7 +1,9 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, current_app
 )
 from werkzeug.exceptions import abort
+import os
+from werkzeug.utils import secure_filename
 from acebook.auth import login_required
 from acebook.db import get_db
 from acebook.post import Post
@@ -45,8 +47,8 @@ def upload_photo():
         caption = request.form['caption']
         photo = request.files['file']
         images_path = current_app.instance_path.replace("instance","acebook/static/images")
-        profile_picture_path = os.path.join(images_path,secure_filename(photo.filename))
-        photo.save(profile_picture_path)
+        upload_picture_path = os.path.join(images_path,secure_filename(photo.filename))
+        photo.save(upload_picture_path)
         error = None
 
         if not caption:
@@ -58,7 +60,7 @@ def upload_photo():
         if error is not None:
             flash(error)
         else:
-            Post.create(caption, photo, g.user.id, g.user.profile_picture)
+            Post.upload_photo(caption, photo, g.user.id, g.user.profile_picture)
             return redirect(url_for('posts.index'))
 
     return render_template('posts/upload_photo.html')
