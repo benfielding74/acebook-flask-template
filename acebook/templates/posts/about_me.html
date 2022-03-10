@@ -7,7 +7,7 @@
 {% block content %}
   <form method="post">
     <label for="about">About Me</label>
-    <input name="about" id="about" value="{{ request.form['about'] }}" required placeholder="Tell us about yourself">
+    <input name="about" id="about" value="{{ request.form['about'] or user.about_me }}" required placeholder="Tell us about yourself">
     <input type="submit" value="Save">
   </form>
   <!-- <hr>

@@ -8,4 +8,28 @@
 {% if g.user.id == user.id %}
  <a class="action" href="{{ url_for('posts.about_me', id=g.user.id) }}">Edit</a>
 {% endif %}
+
+{% for post in posts %}
+<article class="post">
+  <header>
+    <div>         
+      <div class="profile">
+      <img src="{{url_for('static', filename = 'images/' + post.user_profile_picture, id=post.id)}}" alt="{{ posts.author_id }}" width="60" height="60">
+      <div class="username"><a href="{{ url_for('posts.profile', id=post.author_id) }}">{{ post.username }}</a></div>
+      </div>
+      <h1>{{ post.title }}</h1>
+      <div class="about">posted at {{ post.created.strftime('%H:%M') }} - {{ post.num_likes }} like(s)</div>
+    </div>
+    {% if g.user.id == post.author_id %}
+      <a class="action" href="{{ url_for('posts.update', id=post.id) }}">Edit</a>
+    {% endif %}
+  </header>
+  <p class="body">{{ post.body }}</p>
+
+  <form action="{{ url_for('posts.like_post', id=post.id) }}" method="post" id="form1">
+    <input type="submit" value="Like" >
+  </form>
+
+  </article>
+  {% endfor %}
 {% endblock %}

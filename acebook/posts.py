@@ -105,7 +105,8 @@ def add_comment(id):
 @login_required
 def profile(id):
   user = User.find_by_id(id)
-  return render_template('posts/profile.html', user=user)
+  posts = Post.all_by_user(id)
+  return render_template('posts/profile.html', user=user, posts=posts)
 
 @bp.route('/<int:id>/about_me', methods=('GET', 'POST'))
 def about_me(id):
