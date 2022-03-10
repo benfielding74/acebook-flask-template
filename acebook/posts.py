@@ -112,7 +112,7 @@ def about_me(id):
   user = User.find_by_id(id)
   if request.method == 'POST':
     text = request.form['about']
-    User.add_about_me(user, text)
-    return redirect(url_for('posts.profile'))
+    User.add_about_me(id, text)
+    return redirect(url_for('posts.profile', id = id))
 
-  return render_template('posts/about_me.html')
+  return render_template('posts/about_me.html', user = user)

@@ -25,7 +25,7 @@ class User():
   def find(cls, username):
     db = get_db()
     user = db.execute(
-      'SELECT id, username, password, profile_picture FROM user WHERE username = ?', (username,)
+      'SELECT id, username, password, profile_picture, about_me FROM user WHERE username = ?', (username,)
     ).fetchone()
     if user:
       return User(user['username'], user['password'], user['profile_picture'], user['id'], user['about_me'])
