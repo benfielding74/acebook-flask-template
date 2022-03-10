@@ -93,6 +93,14 @@ def like_post(id):
     post.like_post()
     return redirect(url_for('posts.index'))
 
+@bp.route('/<int:id>/comments', methods=('GET',))
+@login_required
+def comments(id):
+  post = Post.find_by_id(id)
+  comments = Comment.all_comments()
+  return render_template('posts/comments.html', post = post, comments = comments)
+
+
 @bp.route('/<int:id>/add_comment', methods=('POST', 'GET'))
 @login_required
 def add_comment(id):
