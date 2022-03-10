@@ -14,7 +14,7 @@
         <div>         
           <div class="profile">
           <img src="{{url_for('static', filename = 'images/' + post.user_profile_picture, id=post.id)}}" alt="{{ posts.author_id }}" width="60" height="60">
-          <div class="username"><a href="{{ url_for('posts.profile', id=post.author_id) }}">{{ post.username }}</a></div>
+          <div class="username"><a href="{{ url_for('posts.profile', id=post.author_id) }}">{{ post.username.capitalize() }}</a></div>
           </div>
           <h1>{{ post.title }}</h1>
           <div class="about">posted at {{ post.created.strftime('%H:%M') }} - {{ post.num_likes }} like(s)</div>
