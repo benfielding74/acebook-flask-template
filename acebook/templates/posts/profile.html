@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<div class="profile">
+  <div class="profile_details">
 <img src="{{url_for('static', filename = 'images/' + user.profile_picture)}}" alt="{{ user.username }}" width="120" height="120">
 <h1>Hello {{ user.username }}</h1>
 <h3>About Me</h3>
 <p> {{ user.about_me }} </p>
 {% if g.user.id == user.id %}
  <a class="action" href="{{ url_for('posts.about_me', id=g.user.id) }}">Edit</a>
+  <h4>BUY SHIT!!!!</h4>
 {% endif %}
-
+  </div>
+  <div class="profile_posts"></div>
 {% for post in posts %}
 <article class="post">
   <header>
@@ -30,6 +33,8 @@
     <input type="submit" value="Like" >
   </form>
 
+  </div>
   </article>
   {% endfor %}
+  </div>
 {% endblock %}

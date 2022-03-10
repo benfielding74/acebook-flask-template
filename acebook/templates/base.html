@@ -6,10 +6,10 @@
   <ul>
     {% if g.user %}
       <li><span><a href="{{ url_for('posts.profile', id=g.user.id) }}">{{ g.user.username + "'s Profile"}}</a></span> 
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+      <li><span><a href="{{ url_for('auth.logout') }}">Log Out</a></span></li>
     {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+      <li><span><a href="{{ url_for('auth.register') }}">Register</a></span></li>
+      <li><span><a href="{{ url_for('auth.login') }}">Log In</a></span></li>
     {% endif %}
   </ul>
 </nav>
