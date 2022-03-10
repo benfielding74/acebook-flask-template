@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-  <form method="post">
+  <form method="post" enctype = "multipart/form-data">
     <label for="title">Photo Caption</label>
     <input name="caption" id="caption" value="{{ request.form['caption'] }}" required>
     <label for="body">Pick A Photo</label>
