@@ -6,7 +6,7 @@
       <header>
         <div>         
           <div class="profile">
-          <img src="{{url_for('static', filename = 'images/' + post.user_profile_picture, id=post.id)}}" alt="{{ post.author_id }}" width="60" height="60">
+          <img class="profile_img" src="{{url_for('static', filename = 'images/' + post.user_profile_picture, id=post.id)}}" alt="{{ post.author_id }}" width="60" height="60">
           <div class="username"><a href="{{ url_for('posts.profile', id=post.author_id) }}">{{ post.username.capitalize() }}</a></div>
           </div>
           <h1>{{ post.title }}</h1>
@@ -16,7 +16,14 @@
           <a class="action" href="{{ url_for('posts.update', id=post.id) }}">Edit</a>
         {% endif %}
       </header>
-      <p class="body">{{ post.body }}</p>
+         
+      {% if post.body.endswith(('.jpeg', '.jpg', '.png', '.gif', '.ico', '.bmp')) %} 
+      <div class="pic_center">
+        <img src="{{url_for('static', filename = 'images/' + post.body, id=post.id)}}" alt="a photo uploaded by a user" width="70%" height="auto">
+      </div>
+      {% else %}
+        <p class="body">{{ post.body }}</p>
+      {% endif %} 
 
       </article>
 

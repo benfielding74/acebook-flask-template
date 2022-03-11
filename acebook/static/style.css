@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   background: white;
 }
@@ -136,11 +136,21 @@ input[type='submit'] {
   min-width: 10em;
 }
 
-img {
+.profile_img {
   border-radius: 50%;
   padding: 0.5rem;
 }
 
+.img {
+   padding: 0.5rem;
+ }
+
+ .pic_center {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   width: 50%;
+ }
 .username {
   font-size: 1.5em;
   color: #377ba8;
