@@ -3,7 +3,8 @@
 {% block header %}
   <h1>{% block title %}Posts{% endblock %}</h1>
   {% if g.user %}
-    <a class="action" href="{{ url_for('posts.create') }}">New</a>
+    <a class="action" href="{{ url_for('posts.create') }}">New Post</a>
+    <a class="action" href="{{ url_for('posts.upload_photo') }}">Post a Photo</a>
   {% endif %}
 {% endblock %}
 
@@ -23,8 +24,15 @@
           <a class="action" href="{{ url_for('posts.update', id=post.id) }}">Edit</a>
         {% endif %}
       </header>
-      <p class="body">{{ post.body }}</p>
-      <div class="post_buttons">
+        
+        {% if post.body.endswith(('.jpeg', '.jpg', '.png', '.gif', '.ico', '.bmp')) %} 
+          <img src="{{url_for('static', filename = 'images/' + post.body, id=post.id)}}" alt="a photo uploaded by a user" width="100" height="150">
+        {% else %}
+          <p class="body">{{ post.body }}</p>
+        {% endif %} 
+                  
+      <div class="post_buttons">               
+
       <form action="{{ url_for('posts.like_post', id=post.id) }}" method="post" id="form1">
         <input type="submit" value="Like" >
       </form>
@@ -41,5 +49,4 @@
     {% endif %}
   {% endfor %}
 {% endblock %}
-
 
