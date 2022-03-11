@@ -12,7 +12,17 @@ class Post():
       (title, body, user_id, user_profile_picture)
     )
     db.commit()
-
+  
+  @classmethod
+  def upload_photo(cls, caption, photo, user_id, user_profile_picture):
+    db = get_db()
+    db.execute(
+      'INSERT INTO post (title, body, author_id, user_profile_picture)'
+      ' VALUES (?, ?, ?, ?)',
+      (caption, photo, user_id, user_profile_picture)
+    )
+    db.commit()
+  
   @classmethod
   def all(cls):
     db = get_db()

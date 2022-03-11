@@ -1,7 +1,9 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, current_app
 )
 from werkzeug.exceptions import abort
+import os
+from werkzeug.utils import secure_filename
 from acebook.auth import login_required
 from acebook.db import get_db
 from acebook.post import Post
@@ -37,6 +39,32 @@ def create():
             return redirect(url_for('posts.index'))
 
     return render_template('posts/create.html')
+
+@bp.route('/upload_photo', methods=('GET', 'POST'))
+@login_required
+def upload_photo():
+    if request.method == 'POST':
+        caption = request.form['caption']
+        photo = request.files['file']
+        print(photo)
+        images_path = current_app.instance_path.replace("instance","acebook/static/images")
+        upload_picture_path = os.path.join(images_path,secure_filename(photo.filename))
+        photo.save(upload_picture_path)
+        error = None
+
+        if not caption:
+            error = "Don't you want a caption."
+
+        if not photo:
+            error = 'Whats the point if you not putting a picture on?'
+
+        if error is not None:
+            flash(error)
+        else:
+            Post.upload_photo(caption, secure_filename(photo.filename), g.user.id, g.user.profile_picture)
+            return redirect(url_for('posts.index'))
+
+    return render_template('posts/upload_photo.html')
 
 @bp.route('/cancel', methods=('POST',))
 @login_required
