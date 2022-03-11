@@ -107,7 +107,8 @@ def add_comment(id):
     comment = request.form['comment']
     post = Post.find_by_id(id)
     post.add_comment(comment, id, g.user.id)
-    return redirect(url_for('posts.index'))
+    return redirect(url_for('posts.comments', id = id))
+    
 
 @bp.route('/<int:id>/profile', methods=('GET','POST'))
 @login_required

@@ -24,16 +24,17 @@
         {% endif %}
       </header>
       <p class="body">{{ post.body }}</p>
-
+      <div class="post_buttons">
       <form action="{{ url_for('posts.like_post', id=post.id) }}" method="post" id="form1">
         <input type="submit" value="Like" >
       </form>
-
-      </article>
-
       <form action="{{ url_for('posts.comments', id=post.id) }}" method="get" id="form1">
         <input type="submit" value="Comment" >
       </form>
+      </div>
+      </article>
+
+      
      
     {% if not loop.last %}
       <hr>

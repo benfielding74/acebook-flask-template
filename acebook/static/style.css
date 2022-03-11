@@ -181,3 +181,14 @@ img {
   border: none;
   justify-content: right;
 }
+
+.post_buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.post input {
+  margin-right: 20px;
+}
+
