@@ -1,15 +1,27 @@
 <!doctype html>
+<head>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        var scrollpos = localStorage.getItem('scrollpos');
+        if (scrollpos) window.scrollTo(0, scrollpos);
+    });
+
+    window.onbeforeunload = function(e) {
+        localStorage.setItem('scrollpos', window.scrollY);
+    };
+  </script>
+</head>
 <title>{% block title %}{% endblock %} - Acebook</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
-  <h1>Acebook</h1>
+  <h1><a href="{{url_for('posts.index')}}">Acebook</a></h1>
   <ul>
     {% if g.user %}
-      <li><span>{{ g.user.username + "'s Profile"}}</span> 
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+      <li><span><a href="{{ url_for('posts.profile', id=g.user.id) }}">{{ g.user.username + "'s Profile"}}</a></span> 
+      <li><span><a href="{{ url_for('auth.logout') }}">Log Out</a></span></li>
     {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+      <li><span><a href="{{ url_for('auth.register') }}">Register</a></span></li>
+      <li><span><a href="{{ url_for('auth.login') }}">Log In</a></span></li>
     {% endif %}
   </ul>
 </nav>

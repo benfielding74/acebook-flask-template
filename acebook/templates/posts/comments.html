@@ -1,0 +1,49 @@
+ {% extends 'base.html' %}
+ 
+ {% block content %}
+  
+    <article class="post">
+      <header>
+        <div>         
+          <div class="profile">
+          <img src="{{url_for('static', filename = 'images/' + post.user_profile_picture, id=post.id)}}" alt="{{ post.author_id }}" width="60" height="60">
+          <div class="username"><a href="{{ url_for('posts.profile', id=post.author_id) }}">{{ post.username.capitalize() }}</a></div>
+          </div>
+          <h1>{{ post.title }}</h1>
+          <div class="about">posted at {{ post.created.strftime('%H:%M') }} - {{ post.num_likes }} like(s)</div>
+        </div>
+        {% if g.user.id == post.author_id %}
+          <a class="action" href="{{ url_for('posts.update', id=post.id) }}">Edit</a>
+        {% endif %}
+      </header>
+      <p class="body">{{ post.body }}</p>
+
+      </article>
+
+      <h4>Comments</h4>
+     
+        {% for comment in comments %}
+          {% if comment.post_id == post.id %} 
+          <article class="post">
+       
+            <p class="body">{{ comment.comment }}</p>
+            <div class="about">by {{ comment.username }} on {{ comment.time_posted }}</div>
+       
+
+          </article>
+          {% endif %}
+        {% endfor %}
+     <article class="post">
+
+      <div> 
+      <form action="{{ url_for('posts.add_comment', id=post.id) }}" method="post"> 
+        <label for="comment">Comment</label>
+        <textarea name="comment" id="comment" required>{{ request.form['comment'] }}</textarea>
+        <input type="submit" value="Comment">
+      </form>
+      </div>
+    
+    </article>
+    
+
+{% endblock %}

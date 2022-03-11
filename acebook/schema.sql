@@ -7,7 +7,8 @@ CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
-  profile_picture TEXT NOT NULL
+  profile_picture TEXT NOT NULL,
+  about_me TEXT DEFAULT 'Say something'
 );
 
 CREATE TABLE post (

@@ -63,6 +63,13 @@ class Post():
       ) for post in posts
     ]
 
+  @classmethod 
+  def all_by_user(cls, user_id):
+    posts = Post.all() 
+    user_posts = filter(lambda post:post.author_id==user_id, posts)
+    return list(user_posts) 
+
+
   @classmethod
   def find_by_id(cls, id):
     post = get_db().execute(
