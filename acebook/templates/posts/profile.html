@@ -9,7 +9,7 @@
         width="120"
         height="120"
       />
-      <h1>{{ user.username.capitalize() }}</h1>
+      <h1>{{ user.username }}</h1>
       <h3>About Me</h3>
       <p>{{ user.about_me }}</p>
       {% if g.user.id == user.id %}
@@ -58,18 +58,19 @@
           {% else %}
             <p class="body">{{ post.body }}</p>
           {% endif %} 
-
+          <div class="post_buttons">   
         <form
           action="{{ url_for('posts.like_post', id=post.id) }}"
           method="post"
           id="form1"
         >
-          <input type="submit" value="Like" />
+          <input type="submit" value="Like" name="profile" />
         </form>
+        <form action="{{ url_for('posts.comments', id=post.id) }}" method="get" id="form1">
+          <input type="submit" value="Comment" >
+        </form>
+        </div>
       </article>
-      {% if not loop.last %}
-      <hr>
-    {% endif %}
       {% endfor %}
     </div>
   </div>

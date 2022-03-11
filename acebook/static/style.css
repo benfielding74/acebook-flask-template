@@ -8,16 +8,21 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   background: white;
+  word-break:break-all;
 }
 
 h1 {
   font-family: serif;
-  color: #377ba8;
+  color: #4cadee;
   margin: 1rem 0;
 }
 
+h1.post_title{
+  color: black;
+}
+
 a {
-  color: #377ba8;
+  color: #4cadee;
 }
 
 hr {
@@ -26,7 +31,7 @@ hr {
 }
 
 nav {
-  background: lightgray;
+  background: black;
   display: flex;
   align-items: center;
   padding: 0 0.5rem;
@@ -75,9 +80,18 @@ header .action {
   margin: 1em 0;
   padding: 1em;
   background: #cae6f6;
-  border: 1px solid #377ba8;
+  border: 1px solid #4cadee;
 }
 
+.post {
+
+  border: 5px solid #4cadee;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 25px;
+
+
+}
 .post > header {
   display: flex;
   align-items: flex-end;
@@ -134,6 +148,13 @@ input.danger {
 input[type='submit'] {
   align-self: start;
   min-width: 10em;
+  background: black;
+  border-radius: 20px;
+}
+
+input, select, textarea{
+  color: #4cadee;
+  font-weight: bold;
 }
 
 .profile_img {
@@ -153,7 +174,7 @@ input[type='submit'] {
  }
 .username {
   font-size: 1.5em;
-  color: #377ba8;
+  color: #4cadee;
 
   font-weight: bold;
 }
@@ -170,12 +191,13 @@ input[type='submit'] {
 
 .profile_box {
   width: 200px;
-  border: 5px solid #377ba8;
+  border: 5px solid #4cadee;
   padding: 5px;
   margin: 3px;
   text-align: center;
   box-shadow: 5px 10px #888888;
 }
+
 
 .col {
   flex: 1;

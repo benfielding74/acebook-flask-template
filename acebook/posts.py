@@ -117,9 +117,12 @@ def delete(id):
 @bp.route('/<int:id>/like_post', methods=('POST',))
 @login_required
 def like_post(id):
+    page = list(request.form)[0]
     post = Post.find_by_id(id)
     post.like_post()
     return redirect(url_for('posts.index'))
+
+
 
 @bp.route('/<int:id>/comments', methods=('GET',))
 @login_required
