@@ -86,7 +86,7 @@ header .action {
 .post {
 
   border: 5px solid #4cadee;
-  padding: 10px;
+  padding: 20px;
   margin: 10px;
   border-radius: 25px;
 
@@ -192,6 +192,7 @@ input, select, textarea{
 .profile_box {
   width: 200px;
   border: 5px solid #4cadee;
+  border-radius: 25px;
   padding: 5px;
   margin: 3px;
   text-align: center;
